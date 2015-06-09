@@ -37,7 +37,7 @@
 															
 															<div class="space-2"></div>
 
-															<div class="form-group propinsi-group">
+															<div class="form-group propinsi-group hide">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="propinsi">Propinsi</label>
 
 																<div class="col-xs-12 col-sm-9">
@@ -64,12 +64,15 @@
 															
 															<div class="space-2"></div>
 
-															<div class="form-group kecamatan-group hide">
+															<div class="form-group kecamatan-group">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="kecamatan">Kecamatan</label>
 
 																<div class="col-xs-12 col-sm-9">
 																	<select id="kecamatan" name="kecamatan" class="select2" data-placeholder="Pilih Kecamatan...">
-																	
+																	<option value="">&nbsp;</option>
+																	<?php foreach($kecamatan as $row): ?>
+																		<option value="<?=$row->kecamatan_id?>"><?=$row->kecamatan_name?></option>
+																	<?php endforeach; ?>
 																	</select>
 																</div>
 															</div>
