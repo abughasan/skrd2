@@ -12,11 +12,13 @@ class Transaksi extends CI_Controller {
 		$var['assets_top'] = array("acebootstrap_css","fontawesome_css","select-formwizard","googleapis_font","ace_min_css","ace-extra_min_js");
 		$var['assets_bottom'] = array("jquery","bootstrap_min_js","formwizard_js_plugin","ace-script_min_js","autoNumeric_js","formwizard_js");
 		$var['template'] = "standalone";
-		$var['interface'] = array("menu","transaksi_wizard","footer");
+		$var['interface'] = array("menu","transaksi_wizard");
+		$var['komponen_bottom'] = array("footer");
 		
 		// data dari database
 		//wizard 1
 		$var['propinsi'] = $this->app_model->getAllData('mpropinsi')->result();
+		$var['desa'] = $this->app_model->getAllData('mdesa')->result();
 		//wizard 2
 		$var['kecamatan'] = $this->app_model->getSelectedData('mkecamatan',array('kota_id'=>'106'))->result();
 		//wizard 3
@@ -217,6 +219,7 @@ class Transaksi extends CI_Controller {
 	{	
 		$sess_transheader = $this->session->userdata('idtransheader');
 		$transheader['index_lingpem'] = $_POST['ilp_fix'];
+		$transheader['idmlingkupsubdet'] = $_POST['lingkupsubdet'];
 		$transwhere['id'] = $sess_transheader;
 		
 		$update = $this->app_model->updateData('transheaderskr',$transheader,$transwhere);
@@ -227,7 +230,7 @@ class Transaksi extends CI_Controller {
 			echo "Tidak ada perubahan transaksi header";
 		endif;
 		
-		$cek = $this->app_model->getSelectedData('transklasifikasi',array('idheaderskr'=>$sess_transheader));
+		$cek = $this->app_model->getSelectedData('transintegritas',array('idheaderskr'=>$sess_transheader));
 		
 		if($cek->num_rows>0):
 		
@@ -269,6 +272,7 @@ class Transaksi extends CI_Controller {
 	}
 	function simpanTransSKRD() 
 	{
+		
 		$i=count($_POST['kode']);
 		$sess_transheader = $this->session->userdata('idtransheader');
 		$cek = $this->app_model->getSelectedData('transskr',array('idheaderskr'=>$sess_transheader));
@@ -279,6 +283,7 @@ class Transaksi extends CI_Controller {
 		$update_count = 0;
 		for($a=0;$a<$i;$a++)
 		{
+			echo "data ke ". $a." tersimpan \n";
 			$data['idmhargasat'] = $_POST['idmhargasatuan'][$a];
 			$data['kode'] = $_POST['kode'][$a];
 			$data['unit_bangunan'] = $_POST['unit_bangunan'][$a];
@@ -293,15 +298,16 @@ class Transaksi extends CI_Controller {
 			if ($this->db->affected_rows()>0) {$update_count++;}
 		}
 		if($update_count>0):
-			echo $update_count ." data indeks klasifikasi telah terupdate";	
+			echo $update_count ." biaya retribusi terupdate";	
 		else:
-			echo "Tidak berhasil update data indeks klasifikasi. Ada beberapa kemungkinan \n1. Tidak ada data klasifikasi yang anda rubah \n2. Anda sudah menyimpan data sebelumnya \n3. Sistem GAGAL Mengupdate rincian indeks klasifikasi. Periksa koneksi internet / Hubungi IT administrator anda";
+			echo "Tidak berhasil update rincian biaya retribusi. Ada beberapa kemungkinan \n1. Tidak ada data klasifikasi yang anda rubah \n2. Anda sudah menyimpan data sebelumnya \n3. Sistem GAGAL Mengupdate rincian indeks klasifikasi. Periksa koneksi internet / Hubungi IT administrator anda";
 		endif;
 		
 		else:
 		
 		for($a=0;$a<$i;$a++)
 		{
+			echo "data ke ". $a." tersimpan \n";
 			$data['idmhargasat'] = $_POST['idmhargasatuan'][$a];
 			$data['kode'] = $_POST['kode'][$a];
 			$data['unit_bangunan'] = $_POST['unit_bangunan'][$a];
@@ -315,9 +321,9 @@ class Transaksi extends CI_Controller {
 			$insert = $this->app_model->insertData('transskr',$data);
 		}
 		if($this->db->affected_rows()>0):
-			echo "Data rincian indeks klasifikasi telah tersimpan";	
+			echo "Data rincian biaya retribusi tersimpan";	
 		else:
-			echo "GAGAL menyimpan rincian indeks klasifikasi. Periksa koneksi internet / Hubungi IT administrator anda";
+			echo "GAGAL menyimpan rincian biaya retribusi. Periksa koneksi internet / Hubungi IT administrator anda";
 		endif;
 		
 		endif;

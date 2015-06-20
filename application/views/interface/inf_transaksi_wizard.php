@@ -227,7 +227,7 @@
 													Cancel
 												</button>
 											</div>
-										</div>
+										</div
 									</div>
 								</div><!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->

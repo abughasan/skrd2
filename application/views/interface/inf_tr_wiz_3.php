@@ -16,7 +16,7 @@
 															
 															<div class="space-2"></div>
 
-															<div class="form-group lingkupsub-group hide">
+															<div class="form-group lingkupsub-group ">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="lingkupsub">Lingkup Sub</label>
 
 																<div class="col-xs-12 col-sm-9">
@@ -26,7 +26,7 @@
 																</div>
 															</div>
 															
-															<div class="form-group lingkupsubdet-group hide">
+															<div class="form-group lingkupsubdet-group ">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="lingkupsubdet">Lingkup Sub Detail</label>
 
 																<div class="col-xs-12 col-sm-9">
@@ -47,6 +47,10 @@
 															</div>
 
 															<div class="hr hr-dotted"></div>
+
+<div class="well well-lg">
+
+
 <h3 class="lighter block green">1.2 INDEKS INTEGRITAS</h3>
 <h3 class="lighter block blue">1.2.1 INDEKS FUNGSI BANGUNAN GEDUNG</h3>
 
@@ -206,5 +210,5 @@
 																	</div>
 																</div>
 															</div>
-															
+</div>															
 														</form>
