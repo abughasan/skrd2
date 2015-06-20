@@ -37,7 +37,7 @@
 															
 															<div class="space-2"></div>
 
-															<div class="form-group propinsi-group hide">
+															<div class="form-group propinsi-group">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="propinsi">Propinsi</label>
 
 																<div class="col-xs-12 col-sm-9">
@@ -52,7 +52,7 @@
 															
 															<div class="space-2"></div>
 
-															<div class="form-group kota-group hide">
+															<div class="form-group kota-group ">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="kota">Kota/Kabupaten</label>
 
 																<div class="col-xs-12 col-sm-9">
@@ -64,22 +64,19 @@
 															
 															<div class="space-2"></div>
 
-															<div class="form-group kecamatan-group">
+															<div class="form-group kecamatan-group ">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="kecamatan">Kecamatan</label>
 
 																<div class="col-xs-12 col-sm-9">
 																	<select id="kecamatan" name="kecamatan" class="select2" data-placeholder="Pilih Kecamatan...">
-																	<option value="">&nbsp;</option>
-																	<?php foreach($kecamatan as $row): ?>
-																		<option value="<?=$row->kecamatan_id?>"><?=$row->kecamatan_name?></option>
-																	<?php endforeach; ?>
+																	
 																	</select>
 																</div>
 															</div>
 															
 															<div class="space-2"></div>
 
-															<div class="form-group desa-group hide">
+															<div class="form-group desa-group ">
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="desa">Desa/Kelurahan</label>
 
 																<div class="col-xs-12 col-sm-9">

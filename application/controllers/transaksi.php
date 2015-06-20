@@ -269,6 +269,7 @@ class Transaksi extends CI_Controller {
 	}
 	function simpanTransSKRD() 
 	{
+		
 		$i=count($_POST['kode']);
 		$sess_transheader = $this->session->userdata('idtransheader');
 		$cek = $this->app_model->getSelectedData('transskr',array('idheaderskr'=>$sess_transheader));
@@ -279,6 +280,7 @@ class Transaksi extends CI_Controller {
 		$update_count = 0;
 		for($a=0;$a<$i;$a++)
 		{
+			echo "data ke ". $a." tersimpan \n";
 			$data['idmhargasat'] = $_POST['idmhargasatuan'][$a];
 			$data['kode'] = $_POST['kode'][$a];
 			$data['unit_bangunan'] = $_POST['unit_bangunan'][$a];
@@ -293,15 +295,16 @@ class Transaksi extends CI_Controller {
 			if ($this->db->affected_rows()>0) {$update_count++;}
 		}
 		if($update_count>0):
-			echo $update_count ." data indeks klasifikasi telah terupdate";	
+			echo $update_count ." biaya retribusi terupdate";	
 		else:
-			echo "Tidak berhasil update data indeks klasifikasi. Ada beberapa kemungkinan \n1. Tidak ada data klasifikasi yang anda rubah \n2. Anda sudah menyimpan data sebelumnya \n3. Sistem GAGAL Mengupdate rincian indeks klasifikasi. Periksa koneksi internet / Hubungi IT administrator anda";
+			echo "Tidak berhasil update rincian biaya retribusi. Ada beberapa kemungkinan \n1. Tidak ada data klasifikasi yang anda rubah \n2. Anda sudah menyimpan data sebelumnya \n3. Sistem GAGAL Mengupdate rincian indeks klasifikasi. Periksa koneksi internet / Hubungi IT administrator anda";
 		endif;
 		
 		else:
 		
 		for($a=0;$a<$i;$a++)
 		{
+			echo "data ke ". $a." tersimpan \n";
 			$data['idmhargasat'] = $_POST['idmhargasatuan'][$a];
 			$data['kode'] = $_POST['kode'][$a];
 			$data['unit_bangunan'] = $_POST['unit_bangunan'][$a];
@@ -315,9 +318,9 @@ class Transaksi extends CI_Controller {
 			$insert = $this->app_model->insertData('transskr',$data);
 		}
 		if($this->db->affected_rows()>0):
-			echo "Data rincian indeks klasifikasi telah tersimpan";	
+			echo "Data rincian biaya retribusi tersimpan";	
 		else:
-			echo "GAGAL menyimpan rincian indeks klasifikasi. Periksa koneksi internet / Hubungi IT administrator anda";
+			echo "GAGAL menyimpan rincian biaya retribusi. Periksa koneksi internet / Hubungi IT administrator anda";
 		endif;
 		
 		endif;
