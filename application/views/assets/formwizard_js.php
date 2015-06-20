@@ -177,10 +177,10 @@
 							required: true,
 						},
 						propinsi: {
-							required: true,
+							required: false,
 						},
 						kota: {
-							required: true,
+							required: false,
 						},
 						kecamatan: {
 							required: true,
@@ -417,7 +417,7 @@
 						var bobot<?=$i?> = $('#bobot<?=$i?>').text();
 						var klas<?=$i?> = indeks<?=$i?> * bobot<?=$i?>;
 						var hasil<?=$i?> = Math.round(klas<?=$i?> * 100) / 100;
-						// alert(indeks<?=$i?>+' * '+bobot<?=$i?>+ ' = '+hasil<?=$i?>.toFixed(2));
+						alert(indeks<?=$i?>+' * '+bobot<?=$i?>+ ' = '+hasil<?=$i?>.toFixed(2));
 						$('#indeksparamsub<?=$i?>').val(indeks<?=$i?>);
 						$('#bobotxindeks<?=$i?>').val(hasil<?=$i?>.toFixed(2));
 						$('#bobotxindeks_hide<?=$i?>').val(klas<?=$i?>);
@@ -510,8 +510,6 @@
 					$('[name^="jmlunit"]').each(function() { arrjumlah_unit.push($(this).val()) });
 					$('[name^="jumlah_skrd"]').each(function() { arrjumlah_ret.push($(this).autoNumeric('get')) });
 					
-					// alert(arrindeks_integritas);
-					
 					$.ajax({
 						url: "<?= base_url() ?>transaksi/simpanTransSKRD/", cache: false,
 						type: 'post',
@@ -536,7 +534,7 @@
 				var harga_satuan = $('select#kode_skrd'+nomer).val().split('*')[2];
 				var kode = $('select#kode_skrd'+nomer).val().split('*')[0];
 				var jenis_bangunan = $('select#kode_skrd'+nomer+' option:selected').text().split('-')[1];
-				var luas = $('#luas'+nomer).autoNumeric('get');
+				var luas = $('#luas'+nomer).val();
 				
 				$('#unit_bangunan'+nomer).val(jenis_bangunan);
 				$('#i_integrasi'+nomer).text($('#indeks_integritas').val());
@@ -574,7 +572,7 @@
 				var tdhargas = $('#skrd_satuan_'+nomer);
 				var tdjmlunit = $('#tdjmlunit'+nomer);
 				var kode = $('select#kode_skrd'+nomer).val().split('*')[0];
-				var luas = $('#luas'+nomer).autoNumeric('get');
+				var luas = $('#luas'+nomer).val();
 				var harga_satuan = $('select#kode_skrd'+nomer).val().split('*')[2];
 				if (kode.slice(0,1) == 1) 
 				{
@@ -602,7 +600,7 @@
 				$('tr#skrd_row'+nomer).remove();
 			}
 			function autonumskrd(nomer) {
-			  $('#luas'+nomer).autoNumeric('init');
+			  $('#luas'+nomer).autoNumeric('init');    
 			  $('#jumlah_skrd'+nomer).autoNumeric('init');    
 			  $('#luas'+nomer).autoNumeric('update');    
 			  $('#jumlah_skrd'+nomer).autoNumeric('update');    
