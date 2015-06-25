@@ -84,7 +84,7 @@ class Transaksi extends CI_Controller {
 		?>
 		<option value="">&nbsp;</option>
 		<?php foreach($desa as $row): ?>
-			<option value="<?=$row->indeks?>"><?=$row->lingkupsubdet?> - indeks : <?=$row->indeks?></option>
+			<option value="<?=$row->idmlingkupsubdet?>*<?=$row->indeks?>"><?=$row->lingkupsubdet?> - indeks : <?=$row->indeks?></option>
 		<?php endforeach; ?>
 		
 		<?php
@@ -92,6 +92,15 @@ class Transaksi extends CI_Controller {
 	function clearselected()
 	{
 		?><option value="">&nbsp;</option><?php
+	}
+	
+	function tambah_int_klas($angka)
+	{
+		$var['fungsi'] = $this->app_model->getAllData('mfungsi')->result();
+		$var['klasifikasi'] = $this->app_model->getAllData('mklasifikasi');
+		$var['waktuguna'] = $this->app_model->getAllData('mwaktuguna');
+		$var['angka'] = $angka;
+		$this->load->view('interface/inf_tr_wiz_3-1',$var);
 	}
 	
 	
@@ -166,9 +175,16 @@ class Transaksi extends CI_Controller {
 	
 	function simpanTransKlasifikasi()
 	{
+		$tabel_ke = $_POST['tabel_ke'];
 		$i=count($_POST['param']);
 		$sess_transheader = $this->session->userdata('idtransheader');
-		$cek = $this->app_model->getSelectedData('transklasifikasi',array('idheaderskr'=>$sess_transheader));
+		if ($tabel_ke > 1):
+			$cek2 = $this->app_model->getSelectedData('transklasifikasi',array('idheaderskr'=>$sess_transheader,'tabel_ke'=>$tabel_ke));
+			$cek = $this->app_model->manualQuery('select distinct(tabel_ke) from transklasifikasi where idheaderskr = {$sess_transheader}');
+			
+		else:
+			$cek = $this->app_model->getSelectedData('transklasifikasi',array('idheaderskr'=>$sess_transheader));
+		endif;
 		
 		if ($cek->num_rows()>0):
 		
@@ -183,6 +199,7 @@ class Transaksi extends CI_Controller {
 			$data['boboxindeks'] = $_POST['bobotxindeks'][$a];
 			$where['idmklas'] = $_POST['idmklas'][$a];
 			$where['idheaderskr'] = $sess_transheader;
+			$where['tabel_ke'] = $tabel_ke;
 			$update = $this->app_model->updateData('transklasifikasi',$data,$where);
 			if ($this->db->affected_rows()>0) {$update_count++;}
 		}
@@ -204,6 +221,7 @@ class Transaksi extends CI_Controller {
 			$data['indeks'] = $_POST['indeksparamsub'][$a];
 			$data['boboxindeks'] = $_POST['bobotxindeks'][$a];
 			$data['idheaderskr'] = $sess_transheader;
+			$data['tabel_ke'] = $tabel_ke;
 			$insert = $this->app_model->insertData('transklasifikasi',$data);
 		}
 		if($this->db->affected_rows()>0):
@@ -219,7 +237,8 @@ class Transaksi extends CI_Controller {
 	{	
 		$sess_transheader = $this->session->userdata('idtransheader');
 		$transheader['index_lingpem'] = $_POST['ilp_fix'];
-		$transheader['idmlingkupsubdet'] = $_POST['lingkupsubdet'];
+		$idmlin_arr = explode("*",$_POST['lingkupsubdet']);
+		$transheader['idmlingkupsubdet'] = $idmlin_arr[0];
 		$transwhere['id'] = $sess_transheader;
 		
 		$update = $this->app_model->updateData('transheaderskr',$transheader,$transwhere);
@@ -229,6 +248,8 @@ class Transaksi extends CI_Controller {
 		else:
 			echo "Tidak ada perubahan transaksi header";
 		endif;
+		
+		/** FUNGSI SIMPAN INDEKS DEPRECATED DI STEP INI
 		
 		$cek = $this->app_model->getSelectedData('transintegritas',array('idheaderskr'=>$sess_transheader));
 		
@@ -269,6 +290,8 @@ class Transaksi extends CI_Controller {
 		endif;
 		
 		endif;
+		
+		FUNGSI SIMPAN INDEKS DEPRECATED DI STEP INI **/
 	}
 	function simpanTransSKRD() 
 	{

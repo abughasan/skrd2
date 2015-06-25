@@ -5,7 +5,7 @@
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="ilp">Lingkup Bangunan</label>
 
 																<div class="col-xs-12 col-sm-9">
-																	<select id="ilp" name="ilp" class="select2" data-placeholder="Pilih Lingkup Bangunan...">
+																	<select id="ilp" name="ilp"  data-placeholder="Pilih Lingkup Bangunan...">
 																	<option value="">&nbsp;</option>
 																	<?php foreach($lingkup as $row): ?>
 																		<option value="<?=$row->idmlingkup?>"><?=$row->lingkup?></option>
@@ -20,7 +20,7 @@
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="lingkupsub">Lingkup Sub</label>
 
 																<div class="col-xs-12 col-sm-9">
-																	<select id="lingkupsub" name="lingkupsub" class="select2" data-placeholder="Lingkup Sub...">
+																	<select id="lingkupsub" name="lingkupsub"  data-placeholder="Lingkup Sub...">
 																	
 																	</select>
 																</div>
@@ -30,7 +30,7 @@
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="lingkupsubdet">Lingkup Sub Detail</label>
 
 																<div class="col-xs-12 col-sm-9">
-																	<select id="lingkupsubdet" name="lingkupsubdet" class="select2" data-placeholder="Lingkup Sub det...">
+																	<select id="lingkupsubdet" name="lingkupsubdet"  data-placeholder="Lingkup Sub det...">
 																	
 																	</select>
 																</div>
@@ -48,7 +48,21 @@
 
 															<div class="hr hr-dotted"></div>
 
-<div class="well well-lg">
+<div class="widget-box integrasi_1">
+												<div class="widget-header">
+													<h4 class="widget-title">Indeks Integrasi (1)</h4>
+
+													<span class="widget-toolbar">
+
+														<a href="#" data-action="collapse">
+															<i class="ace-icon fa fa-chevron-up"></i>
+														</a>
+														
+													</span>
+												</div>
+
+												<div style="display: block;" class="widget-body">
+													<div class="widget-main">
 
 
 <h3 class="lighter block green">1.2 INDEKS INTEGRITAS</h3>
@@ -59,7 +73,7 @@
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="ifbg">Fungsi Bangunan</label>
 
 																<div class="col-xs-12 col-sm-9">
-																	<select id="ifbg" name="ifbg" class="select2" data-placeholder="Pilih Fungsi Bangunan...">
+																	<select id="ifbg" name="ifbg" data-placeholder="Pilih Fungsi Bangunan...">
 																	<option value="">&nbsp;</option>
 																	<?php foreach($fungsi as $row): ?>
 																		<option value="<?=$row->idmfungsi?>*<?=$row->indeks?>*<?=$row->keterangan?>"><?=$row->parameter?></option>
@@ -113,7 +127,7 @@
 																				<td class="param" id="param<?=$no?>"><?=$row->parameter?></td>
 																				<td class="bobot" id="bobot<?=$no?>"><?=$row->bobot?></td>
 																				<td>
-																				<select class="select2 parameter idparameter" id="parameter<?=$no?>" name="parameter<?=$no?>">
+																				<select class="parameter idparameter" id="parameter<?=$no?>" name="parameter<?=$no?>">
 																					<option value=""></option>
 																					<?php $var = $this->app_model->getSelectedData('mklasifikasisub',array('idmklas'=>$row->idmklasifikasi))->result() ?>
 																					
@@ -148,7 +162,7 @@
 																<label class="control-label col-xs-12 col-sm-2 no-padding-right" for="iwp">Fungsi Bangunan</label>
 
 																<div class="col-xs-12 col-sm-9">
-																	<select id="iwp" name="iwp" class="select2" data-placeholder="Pilih Waktu Penggunaan...">
+																	<select id="iwp" name="iwp" class="" data-placeholder="Pilih Waktu Penggunaan...">
 																	<option value="">&nbsp;</option>
 																	<?php foreach($waktuguna->result() as $row): ?>
 																		<option value="<?=$row->idmwaktuguna?>*<?=$row->indeks?>*<?=$row->keterangan?>"><?=$row->parameter?></option>
@@ -207,8 +221,14 @@
 																		</tr>
 																	</table>
 																	<button id="btn_integritas" class="btn btn-warning btn-lg" type="button">Total Indeks Klasifikasi (Klik untuk hitung!)</button>
+																	<button id="btn_tambah_1" onclick="tambah_integrasi(2)" class="btn btn-danger btn-lg" type="button">Tambah Indeks Klasifikasi dan Integrasi</button>
 																	</div>
 																</div>
 															</div>
+<!-- widget box-->
+															</div>
+</div>
+
 </div>															
+<div id="canvas_tambah"></div>
 														</form>

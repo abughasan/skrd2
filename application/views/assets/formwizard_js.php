@@ -397,8 +397,9 @@
 				})
 				$('#lingkupsubdet').change(function(){
 					var ilp_fix = $('#lingkupsubdet').val();
-					$('#ilp_fix').val(ilp_fix);
-					$('#ilp_fix2').val(ilp_fix);
+					var arr = ilp_fix.split("*");
+					$('#ilp_fix').val(arr[1]);
+					$('#ilp_fix2').val(arr[1]);
 				})
 				$('#ifbg').change(function(){
 					var ifbg = $('#ifbg').val();
@@ -435,12 +436,13 @@
 					var arridmklas = [];
 					var arrparam = [];
 					var arrbobot = [];
-					var arrparameter = [];
+					// var arrparameter = [];
 					$("td.idmklas").each(function() { arridmklas.push($(this).text()) });
 					$("td.param").each(function() { arrparam.push($(this).text()) });
 					$("td.bobot").each(function() { arrbobot.push($(this).text()) });
 					var arridmklassub = $(".idparameter option:selected").map(function() { return $(this).val().split("*")[0]; }).get();
-					$(".parameter > .select2-choice > .select2-chosen").each(function() { arrparameter.push($(this).text()) });
+					var arrparameter = $(".idparameter option:selected").map(function() { return $(this).text(); }).get();
+					// $(".parameter > .select2-choice > .select2-chosen").each(function() { arrparameter.push($(this).text()) });
 					var arrindeksparamsub = $('[name^="indeksparamsub"]').map(function(){
 						return $(this).val()
 					}).get();
@@ -451,7 +453,7 @@
 					$.ajax({
 						url: "<?= base_url() ?>transaksi/simpanTransKlasifikasi/", cache: false,
 						type: 'post',
-						data: {idmklas:arridmklas,param:arrparam,bobot:arrbobot,parameter:arrparameter,idmklassub:arridmklassub,indeksparamsub:arrindeksparamsub,bobotxindeks:arrbobotxindeks},
+						data: {idmklas:arridmklas,param:arrparam,bobot:arrbobot,parameter:arrparameter,idmklassub:arridmklassub,indeksparamsub:arrindeksparamsub,bobotxindeks:arrbobotxindeks,tabel_ke:'1'},
 						success: function(msg){
 							alert(msg);
 						}
@@ -610,4 +612,17 @@
 			  $('#luas'+nomer).autoNumeric('update');    
 			  $('#jumlah_skrd'+nomer).autoNumeric('update');    
 			}
+			function tambah_integrasi(angka)
+			{
+				var hapus = angka - 1;
+				// alert(hapus);
+				$('#btn_tambah_'+hapus).addClass('hide');
+					$.ajax({
+						url: "<?= base_url() ?>transaksi/tambah_int_klas/"+angka, cache: false,
+						success: function(msg){
+							$('#canvas_tambah').append(msg);
+						}
+					})
+			}
+			
 		</script>
